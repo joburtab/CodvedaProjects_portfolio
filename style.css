@@ -1,0 +1,330 @@
+/* ==========================================================================
+   1. GLOBAL RESET & VARIABLES
+   ========================================================================== */
+:root {
+    --primary-color: #3b82f6; /* Electric Blue */
+    --bg-dark: #0f172a;      /* Deep Navy */
+    --card-bg: #1e293b;      /* Lighter Slate */
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: radial-gradient(circle at 50% 50%, #1a1c2c 0%, #0d0e14 100%);
+    background-attachment: fixed;
+    color: #e2e8f0;
+}
+
+/* ==========================================================================
+   2. NAVIGATION (GLASSMORPHISM)
+   ========================================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px); /* Glassmorphism Effect */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo { 
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    letter-spacing: -1px; 
+}
+
+.logo span { 
+    color: var(--primary-color); 
+}
+
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+}
+
+.nav-links li { 
+    margin-left: 35px; 
+}
+
+.nav-links a { 
+    text-decoration: none; 
+    color: var(--text-dim); 
+    font-weight: 500; 
+    transition: 0.3s; 
+}
+
+.nav-links a:hover { 
+    color: var(--primary-color); 
+}
+
+/* ==========================================================================
+   3. HERO SECTION & ENTRY ANIMATION
+   ========================================================================== */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeInUp 0.8s forwards;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeInUp 0.8s forwards 0.3s; /* Delayed entrance */
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   4. PROJECT GRID & MODERN GLASS CARDS
+   ========================================================================== */
+.container { 
+    padding: 100px 10%; 
+}
+
+.section-title { 
+    font-size: 2.5rem; 
+    margin-bottom: 40px; 
+    text-align: center; 
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.project-card {
+    position: relative;
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1e293b;
+    cursor: pointer;
+    transition: 0.5s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s ease;
+}
+
+.project-card:hover img {
+    transform: scale(1.1); /* Zoom effect */
+    filter: blur(2px);
+}
+
+/* Card Hover Shimmer Effect */
+.project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.project-card:hover::before {
+    left: 100%; 
+}
+
+/* Card Overlay Content */
+.project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top, 
+        rgba(15, 23, 42, 0.9) 20%, 
+        rgba(15, 23, 42, 0.2) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+    transform: translateY(120px); /* Hide part of the text initially */
+    transition: 0.5s ease;
+}
+
+.project-card:hover .project-overlay {
+    transform: translateY(0); /* Slide up on hover */
+}
+
+.project-overlay h3 {
+    font-size: 1.8rem;
+    color: #3b82f6;
+    margin-bottom: 10px;
+}
+
+.project-overlay p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.project-card:hover p {
+    opacity: 1; /* Fade in description */
+}
+
+/* ==========================================================================
+   5. CONTACT FORM
+   ========================================================================== */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.contact-form input:focus { 
+    border-color: var(--primary-color); 
+}
+
+.btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover { 
+    background: #2563eb; 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4); 
+}
+
+/* ==========================================================================
+   6. PREMIUM FOOTER
+   ========================================================================== */
+footer {
+    background: rgba(15, 23, 42, 0.9);
+    padding: 60px 10% 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 100px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-logo { 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    margin-bottom: 15px; 
+}
+
+.footer-logo span { 
+    color: #3b82f6; 
+}
+
+.footer-section h4 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.footer-links { 
+    list-style: none; 
+}
+
+.footer-links li { 
+    margin-bottom: 10px; 
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-links a:hover { 
+    color: #3b82f6; 
+    padding-left: 5px; 
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .hero h1 { 
+        font-size: 2.5rem; 
+    }
+    .navbar { 
+        padding: 15px 5%; 
+    }
+    .nav-links { 
+        display: none; 
+    }
+}
